@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://lab.kozin.rsatu.ru/"
+           xmlns="http://lab.kozin.rsatu.ru/"
+           elementFormDefault="qualified">
+
+
+    <xs:complexType name="man">
+        <xs:sequence>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="surname" type="xs:string"/>
+            <xs:element name="patronim" type="xs:string"/>
+            <xs:element name="dateOfBirth" type="xs:date"/>
+        </xs:sequence>
+    </xs:complexType>
+
+
+    <xs:complexType name="employee">
+        <xs:complexContent>
+            <xs:extension base="man">
+                <xs:sequence>
+                    <xs:element name="employeeDoc" type="doc"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="student">
+        <xs:complexContent>
+            <xs:extension base="man">
+                <xs:sequence>
+                    <xs:element name="studentDoc" type="doc"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+
+    <xs:complexType name="doc">
+        <xs:sequence>
+            <xs:element name="docID" type="id"/>
+        </xs:sequence>
+    </xs:complexType>
+
+
+    <xs:simpleType name="id">
+        <xs:restriction base="xs:positiveInteger">
+            <xs:totalDigits value="9"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+
+    <xs:complexType name="department">
+        <xs:sequence>
+            <xs:element name="departmentName" type="xs:string"/>
+            <xs:element name="boss" minOccurs="1" maxOccurs="5" type="employee"/>
+            <xs:element name="departmentEmployee" minOccurs="1" maxOccurs="500" type="employee"/>
+            <!-- <xs:element name="subsidiaries" minOccurs="0" maxOccurs="100" type="department"/>-->
+        </xs:sequence>
+    </xs:complexType>
+
+
+    <xs:complexType name="administration">
+        <xs:complexContent>
+            <xs:extension base="department">
+                <xs:sequence>
+                    <xs:element name="bookkeeping" type="bookkeeping"/>
+                    <xs:element name="departmentOfScientific" type="departmentOfScientific"/>
+                    <xs:element name="economicDepartment" type="economicDepartment"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+
+    <xs:complexType name="bookkeeping">
+        <xs:complexContent>
+            <xs:extension base="department">
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="economicDepartment">
+        <xs:complexContent>
+            <xs:extension base="department">
+                <xs:sequence>
+                    <xs:element name="cafe" type="department"/>
+                    <xs:element name="staffDepartment" type="department"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="departmentOfScientific">
+        <xs:complexContent>
+            <xs:extension base="department">
+                <xs:sequence>
+                    <xs:element name="library" type="library"/>
+                    <xs:element name="educationalMethodicalDepartment" type="department"/>
+                    <xs:element name="faculty" type="faculty" minOccurs="2" maxOccurs="50"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+
+    <xs:complexType name="library">
+        <xs:complexContent>
+            <xs:extension base="department">
+
+                <xs:sequence minOccurs="10" maxOccurs="unbounded">
+                    <xs:element name="book" type="book"/>
+                </xs:sequence>
+
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="book">
+        <xs:sequence>
+            <xs:element name="bookID" type="id"/>
+            <xs:element name="title" type="xs:string"/>
+            <xs:element name="state" type="xs:boolean"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="faculty">
+        <xs:sequence>
+            <xs:element name="facultyName" type="xs:string"/>
+            <xs:element name="dean" type="employee"/>
+            <xs:element name="kafedra" type="kafedra"/>
+        </xs:sequence>
+    </xs:complexType>
+
+
+    <xs:complexType name="kafedra">
+        <xs:sequence>
+            <xs:element name="kafedraName" type="xs:string"/>
+            <xs:element name="headTeacher" type="employee"/>
+            <xs:element name="teacher" type="employee" minOccurs="2" maxOccurs="50"/>
+            <xs:element name="group" type="group" minOccurs="2" maxOccurs="50"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="group">
+        <xs:sequence>
+            <xs:element name="groupName" type="xs:string"/>
+            <xs:element name="year" type="xs:gYear"/>
+            <xs:element name="starosta" type="student"/>
+            <xs:element name="students" type="student" minOccurs="5" maxOccurs="70"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:element name="university">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="administration" type="administration"/>
+
+
+            </xs:sequence>
+            <xs:attribute name="universityName" type="xs:string" use="required"/>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
