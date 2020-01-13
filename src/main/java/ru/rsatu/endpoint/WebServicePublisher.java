@@ -7,7 +7,7 @@ import ru.rsatu.ws.XMLServiceImpl;
 public class WebServicePublisher {
     public static void main(String... args) {
         // WS url
-        Endpoint.publish("", new XMLServiceImpl());
+        Endpoint.publish("http://localhost:1488/ws/Test", new XMLServiceImpl());
     }
 }
 
