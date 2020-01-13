@@ -1,5 +1,8 @@
 package ru.rsatu.ws;
 
+import org.apache.log4j.Logger;
+import ru.rsatu.pojo.Faculty;
+import ru.rsatu.pojo.Group;
 import ru.rsatu.pojo.Student;
 import ru.rsatu.pojo.University;
 
@@ -11,10 +14,13 @@ import java.io.File;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Paths;
+import java.util.List;
 
 
 @WebService(endpointInterface = "ru.rsatu.ws.IFromXMLService")
 public class XMLServiceImpl implements IFromXMLService {
+
+    private static final Logger log = Logger.getLogger(XMLServiceImpl.class);
 
     private String getResPath(String filename) {
         URL resource = this.getClass().getClassLoader().getResource(filename);
@@ -30,6 +36,7 @@ public class XMLServiceImpl implements IFromXMLService {
 
     @Override
     public University getUniversity() {
+        log.info("getUniversity call");
         University res = null;
         try {
             // создаем объект JAXBContext
@@ -38,7 +45,10 @@ public class XMLServiceImpl implements IFromXMLService {
             res = (University) un.unmarshal(new File(getResPath("FinalEditedXML4.xml")));
         } catch (JAXBException e) {
             //throw new EditErr("XML Unmarshaller Error");
+            log.error("getUniversity err ", e);
         }
+
+        log.info("getUniversity return " + res.toString());
         return res;
 
 
@@ -46,7 +56,17 @@ public class XMLServiceImpl implements IFromXMLService {
 
     @Override
     public Student getStudent() {
-        Student res = null;
+        log.info("getStudent call");
+
+        University university = getUniversity();
+
+        List<Faculty> facultyList = university.getAdministration().getDepartmentOfScientific().getFaculty();
+        Faculty faculty = facultyList.get(0);
+        List<Group> groupList = faculty.getKafedra().getGroup();
+        Student student = groupList.get(0).getStudents().get(0);
+        return student;
+
+       /* Student res = null;
         try {
             // создаем объект JAXBContext
             JAXBContext jaxbContext = JAXBContext.newInstance(Student.class);
@@ -54,8 +74,10 @@ public class XMLServiceImpl implements IFromXMLService {
             res = (Student) un.unmarshal(new File(getResPath("FinalEditedXML4.xml")));
         } catch (JAXBException e) {
             //throw new EditErr("XML Unmarshaller Error");
+            log.error("getStudent err ", e);
         }
-        return res;
+        log.info("getStudent return " + res.toString());
+        return res;*/
     }
 
 
