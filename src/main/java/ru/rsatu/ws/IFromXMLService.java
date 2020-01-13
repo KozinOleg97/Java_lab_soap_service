@@ -1,5 +1,6 @@
 package ru.rsatu.ws;
 
+import ru.rsatu.pojo.Student;
 import ru.rsatu.pojo.University;
 
 import javax.jws.WebMethod;
@@ -10,11 +11,9 @@ import javax.jws.soap.SOAPBinding;
 @SOAPBinding(style = SOAPBinding.Style.DOCUMENT)
 public interface IFromXMLService {
 
-    public String getResPath(String fileName);
 
-    @WebMethod
-    public University getUniversity();
+    University getUniversity();
 
-
+    Student getStudent();
 
 }

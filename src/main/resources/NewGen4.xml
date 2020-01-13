@@ -1,6 +1,6 @@
-<university         xmlns="http://lab.kozin.rsatu.ru/"
+<university         xmlns="http://ws.rsatu.ru/"
                         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                        xsi:schemaLocation="http://lab.kozin.rsatu.ru/ TestXSD.xsd"
+                        xsi:schemaLocation="http://ws.rsatu.ru/ TestXSD.xsd"
                         universityName="str1234">
   <administration>
     <departmentName>string</departmentName>

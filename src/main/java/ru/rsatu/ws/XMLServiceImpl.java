@@ -1,5 +1,6 @@
 package ru.rsatu.ws;
 
+import ru.rsatu.pojo.Student;
 import ru.rsatu.pojo.University;
 
 import javax.jws.WebService;
@@ -15,8 +16,7 @@ import java.nio.file.Paths;
 @WebService(endpointInterface = "ru.rsatu.ws.IFromXMLService")
 public class XMLServiceImpl implements IFromXMLService {
 
-    @Override
-    public String getResPath(String filename) {
+    private String getResPath(String filename) {
         URL resource = this.getClass().getClassLoader().getResource(filename);
         File file = null;
         try {
@@ -42,6 +42,20 @@ public class XMLServiceImpl implements IFromXMLService {
         return res;
 
 
+    }
+
+    @Override
+    public Student getStudent() {
+        Student res = null;
+        try {
+            // создаем объект JAXBContext
+            JAXBContext jaxbContext = JAXBContext.newInstance(Student.class);
+            Unmarshaller un = jaxbContext.createUnmarshaller();
+            res = (Student) un.unmarshal(new File(getResPath("FinalEditedXML4.xml")));
+        } catch (JAXBException e) {
+            //throw new EditErr("XML Unmarshaller Error");
+        }
+        return res;
     }
 
 

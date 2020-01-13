@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><university xmlns="http://lab.kozin.rsatu.ru/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" universityName="str1234" xsi:schemaLocation="http://lab.kozin.rsatu.ru/ TestXSD.xsd">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><university xmlns="http://ws.rsatu.ru/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" universityName="str1234" xsi:schemaLocation="http://ws.rsatu.ru/ TestXSD.xsd">
   <administration>
     <departmentName>string</departmentName>
     <!--1 to 5 repetitions:-->

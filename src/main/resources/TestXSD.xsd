@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           targetNamespace="http://lab.kozin.rsatu.ru/"
-           xmlns="http://lab.kozin.rsatu.ru/"
+           targetNamespace="http://ws.rsatu.ru/"
+           xmlns="http://ws.rsatu.ru/"
            elementFormDefault="qualified">
 
 
