@@ -1,6 +1,7 @@
 package ru.rsatu.ws;
 
 import org.apache.log4j.Logger;
+import ru.rsatu.exeptions.EditError;
 import ru.rsatu.pojo.Faculty;
 import ru.rsatu.pojo.Group;
 import ru.rsatu.pojo.Student;
@@ -35,17 +36,18 @@ public class XMLServiceImpl implements IFromXMLService {
     }
 
     @Override
-    public University getUniversity() {
+    public University getUniversity() throws EditError {
         log.info("getUniversity call");
         University res = null;
         try {
-            // создаем объект JAXBContext
+
             JAXBContext jaxbContext = JAXBContext.newInstance(University.class);
             Unmarshaller un = jaxbContext.createUnmarshaller();
             res = (University) un.unmarshal(new File(getResPath("FinalEditedXML4.xml")));
         } catch (JAXBException e) {
-            //throw new EditErr("XML Unmarshaller Error");
+
             log.error("getUniversity err ", e);
+            throw new EditError();
         }
 
         log.info("getUniversity return " + res.toString());
@@ -55,7 +57,7 @@ public class XMLServiceImpl implements IFromXMLService {
     }
 
     @Override
-    public Student getStudent() {
+    public Student getStudent() throws EditError {
         log.info("getStudent call");
 
         University university = getUniversity();
@@ -66,18 +68,15 @@ public class XMLServiceImpl implements IFromXMLService {
         Student student = groupList.get(0).getStudents().get(0);
         return student;
 
-       /* Student res = null;
-        try {
-            // создаем объект JAXBContext
-            JAXBContext jaxbContext = JAXBContext.newInstance(Student.class);
-            Unmarshaller un = jaxbContext.createUnmarshaller();
-            res = (Student) un.unmarshal(new File(getResPath("FinalEditedXML4.xml")));
-        } catch (JAXBException e) {
-            //throw new EditErr("XML Unmarshaller Error");
-            log.error("getStudent err ", e);
-        }
-        log.info("getStudent return " + res.toString());
-        return res;*/
+
+    }
+
+    @Override
+    public University getUniversityWithErr() throws EditError {
+        log.error("myErr");
+        throw new EditError();
+
+        //return null;
     }
 
 

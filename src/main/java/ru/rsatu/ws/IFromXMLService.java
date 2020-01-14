@@ -1,9 +1,9 @@
 package ru.rsatu.ws;
 
+import ru.rsatu.exeptions.EditError;
 import ru.rsatu.pojo.Student;
 import ru.rsatu.pojo.University;
 
-import javax.jws.WebMethod;
 import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
 
@@ -12,8 +12,10 @@ import javax.jws.soap.SOAPBinding;
 public interface IFromXMLService {
 
 
-    University getUniversity();
+    University getUniversity() throws EditError;
 
-    Student getStudent();
+    Student getStudent() throws EditError;
+
+    University getUniversityWithErr() throws EditError;
 
 }
