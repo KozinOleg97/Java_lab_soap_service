@@ -8,6 +8,7 @@
     <artifactId>Java_lab_soap_service</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <packaging>war</packaging>
 
     <build>
         <plugins>
@@ -92,6 +93,16 @@
                 </configuration>
             </plugin>
 
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.6</version>
+                <configuration>
+                    <attachClasses>true</attachClasses>
+                    <webXml>src/main/java/webapp/WEB-INF/web.xml</webXml>
+                </configuration>
+
+            </plugin>
 
         </plugins>
     </build>
@@ -105,6 +116,19 @@
             <version>1.2.17</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.sun.xml.ws</groupId>
+            <artifactId>jaxws-rt</artifactId>
+            <version>2.1.3</version>
+            <scope>compile</scope>
+        </dependency>
+
+
     </dependencies>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    </properties>
 
 </project>

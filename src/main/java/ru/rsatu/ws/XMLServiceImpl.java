@@ -8,6 +8,7 @@ import ru.rsatu.pojo.Student;
 import ru.rsatu.pojo.University;
 
 import javax.jws.WebService;
+import javax.jws.soap.SOAPBinding;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
@@ -17,15 +18,18 @@ import java.net.URL;
 import java.nio.file.Paths;
 import java.util.List;
 
-
-@WebService(endpointInterface = "ru.rsatu.ws.IFromXMLService")
-public class XMLServiceImpl implements IFromXMLService {
+@WebService(serviceName = "Test", portName = "Test")
+@SOAPBinding(style = SOAPBinding.Style.DOCUMENT)
+public class XMLServiceImpl  {
 
     private static final Logger log = Logger.getLogger(XMLServiceImpl.class);
 
     private String getResPath(String filename) {
         URL resource = this.getClass().getClassLoader().getResource(filename);
         File file = null;
+
+
+
         try {
             file = Paths.get(resource.toURI()).toFile();
         } catch (URISyntaxException e) {
@@ -35,7 +39,7 @@ public class XMLServiceImpl implements IFromXMLService {
         return absolutePath;
     }
 
-    @Override
+
     public University getUniversity() throws EditError {
         log.info("getUniversity call");
         University res = null;
@@ -56,7 +60,7 @@ public class XMLServiceImpl implements IFromXMLService {
 
     }
 
-    @Override
+
     public Student getStudent() throws EditError {
         log.info("getStudent call");
 
@@ -71,7 +75,7 @@ public class XMLServiceImpl implements IFromXMLService {
 
     }
 
-    @Override
+
     public University getUniversityWithErr() throws EditError {
         log.error("myErr");
         throw new EditError();
